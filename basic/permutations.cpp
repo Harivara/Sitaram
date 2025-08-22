@@ -23,7 +23,7 @@ void permute(int start,vector<int>&digits){
 }
 
 int main(){
-    int n=5000;
+    int n=123;
     vector<int>digits;
     while(n>0){
         digits.push_back(n%10);

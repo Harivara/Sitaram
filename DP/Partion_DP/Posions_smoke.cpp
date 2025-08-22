@@ -1,3 +1,5 @@
+https://www.interviewbit.com/problems/potions/
+
 int Solution::minSmoke(vector<int> &A) {
     int n = A.size();
     vector<vector<int>> dp(n, vector<int>(n, 0));

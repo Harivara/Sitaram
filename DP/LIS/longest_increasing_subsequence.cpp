@@ -39,7 +39,7 @@ int Solution::lis(const vector<int> &A) {
     int lis[n];
     lis[0]=1;
     for(int i=1;i<n;i++){
-        lis[i]=0;
+        lis[i]=1;
         for(int j=0;j<i;j++){
             if(A[j]<A[i]){
                 lis[i]=max(lis[j]+1,lis[i]);

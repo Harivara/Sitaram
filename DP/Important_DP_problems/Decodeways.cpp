@@ -1,5 +1,7 @@
-https://www.interviewbit.com/problems/ways-to-decode/
+// https://www.interviewbit.com/problems/ways-to-decode/
 
+#include<bits/stdc++.h>
+using namespace std;
 int fun(int i,string A,int n,vector<int>&dp){
     if(i==n){
         return 1;
@@ -18,7 +20,7 @@ int fun(int i,string A,int n,vector<int>&dp){
     }
     return dp[i]= count;
 }
-int Solution::numDecodings(string A) {
+int numDecodings(string A) {
     int MOD=1000000007;
     int n=A.size();
     vector<int>dp(n+1,0);
@@ -38,4 +40,12 @@ int Solution::numDecodings(string A) {
     dp[i]=count%MOD;
     }
     return dp[0];
+}
+
+int main(){
+    string A="2036";
+    int k=numDecodings(A);
+    cout<<k;
+    return 0;
+
 }
