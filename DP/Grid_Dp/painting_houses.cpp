@@ -23,35 +23,37 @@ int Solution::solve(vector<vector<int>> &A) {
     return min({dp[n - 1][0], dp[n - 1][1], dp[n - 1][2]});
 }
 
+int fun(int ind, int prevColor, vector<vector<int>>& A, vector<vector<int>>& dp) {
+    int n = A.size();
+    int m = A[0].size(); // should be 3
 
-int fun(int i,int prevcolor,vector<vector<int>>&A,vector<vector<int>>&dp){
-    if(i<0){
-        return 0;
-    }
-    if(dp[i][prevcolor+1]!=-1){
-        return dp[i][prevcolor+1];
-    }
-    int mincost=INT_MAX;
-    for(int color=0;color<3;color++){
-        if(color!=prevcolor){
-            int cost=A[i][color]+fun(i-1,color,A,dp);
-            mincost=min(cost,mincost);
+    if (ind == n) return 0;  // all houses painted
+
+    if (dp[ind][prevColor] != -1) 
+        return dp[ind][prevColor];
+
+    int cost = INT_MAX;
+    for (int color = 0; color < m; color++) {
+        if (color != prevColor) {
+            cost = min(cost, A[ind][color] + fun(ind + 1, color, A, dp));
         }
     }
-    return  dp[i][prevcolor+1]=mincost;
+
+    return dp[ind][prevColor] = cost;
 }
-int Solution::solve(vector<vector<int> > &A) {
-    int n=A.size();
-    vector<vector<int>>dp(n+1,vector<int>(4,0));
-    // return fun(n-1,-1,A,dp);
-    for(int i=1;i<=n;i++){
-        int mincost=INT_MAX;
-    for(int color=0;color<3;color++){
-        if(color!=prevcolor){
-            int cost=A[i][color]+fun(i-1,color,A,dp);
-            mincost=min(cost,mincost);
-        }
+
+int Solution::solve(vector<vector<int>> &A) {
+    int n = A.size();
+    int m = A[0].size(); // should be 3
+    int minCost = INT_MAX;
+
+    // dp[n][4] (prevColor = 0,1,2,3) where 3 means "no previous color"
+    vector<vector<int>> dp(n, vector<int>(m + 1, -1));
+
+    // Start with prevColor = m (i.e., no restriction for first house)
+    for (int color = 0; color < m; color++) {
+        minCost = min(minCost, A[0][color] + fun(1, color, A, dp));
     }
-    return  dp[i][prevcolor+1]=mincost;
-    }
+
+    return minCost;
 }

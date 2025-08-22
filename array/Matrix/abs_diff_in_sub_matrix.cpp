@@ -1,42 +1,36 @@
 https://leetcode.com/problems/minimum-absolute-difference-in-sliding-submatrix/
-
 class Solution {
 public:
     vector<vector<int>> minAbsDiff(vector<vector<int>>& grid, int k) {
-        vector<vector<int>> arr;
-        for(int i = 0; i <= grid.size() - k; i++){
-            vector<int> R;
-            for(int j = 0; j <= grid[i].size() - k; j++){
-
-                // SubMatrix
-                set<int> num;
-                int mini = INT_MAX;
-                for(int I = i; I < k + i; I++){
-                    for(int J = j; J < k + j; J++){
-                       num.insert(grid[I][J]);
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>>res;
+        for(int i=0;i<=n-k;i++){
+            vector<int>ans;
+            for(int j=0;j<=m-k;j++){
+                set<int>s;
+                int mini=INT_MAX;
+                for(int p=i;p<k+i;p++){
+                    for(int q=j;q<k+j;q++){
+                        s.insert(grid[p][q]);
                     }
                 }
-
-                if(num.size() == 1){
-                    R.push_back(0);
+                if(s.size()==1){
+                    ans.push_back(0);
                     continue;
                 }
-                
-                vector<int> J;
-                for(auto M = num.begin(); M != num.end(); M++){
-                    J.push_back(*M);
+                vector<int>order;
+                for(auto x:s){
+                    order.push_back(x);
                 }
-
-                for(int G = 0; G < J.size() - 1; G++){
-                    mini = min(mini,abs(J[G + 1] - J[G]));
+                for(int a=0;a<order.size()-1;a++){
+                    mini=min(mini,abs(order[a]-order[a+1]));
                 }
+                ans.push_back(mini);
 
-                R.push_back(mini);
             }
-
-            arr.push_back(R);
+            res.push_back(ans);
         }
-
-        return arr;
+        return res;
     }
 };
