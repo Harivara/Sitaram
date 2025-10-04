@@ -1,0 +1,18 @@
+## Check installed versions of java
+1. check for java list
+    update-alternatives --list java
+2. update java
+    sudo update-alternatives --config java
+
+
+## To know the using ports
+sudo lsof -i :8080
+kill -9 PID
+Windows -->     
+netstat -ano | findstr :8082
+tasklist /FI "PID eq 2100"
+taskkill /PID 2100 /F
+
+
+
+

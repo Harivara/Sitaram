@@ -1,0 +1,80 @@
+## Setting Up Tomcat Server
+1. Download tomcat zip file
+2. Create tomcat-users.xml file in conf directory
+    <user username="admin" passwords="admin1234" roles="admin-gui, manager-gui"/>
+3. Create a shortcut for starting tomcat
+    sudo ln -s /opt/apche/bin/startup.sh /usr/bin/startTomcat
+    sudo ln -s /opt/apche/bin/shutdow.sh /usr/bin/stopTomcat
+4. sudo vi /opt/apache/webapps/manager/META_INF/context.xml
+    comment:
+    <!-- Value className="org.apache.catalina.values.RemoteAddrValue">
+    allow="127\.\d+\.\d+\.\d+|::| 0:0:0:0:0:0:0:1"/>-->
+4. sudo vi /opt/apache/webapps/host-manager/META_INF/context.xml
+    comment:
+    <!-- Value className="org.apache.catalina.values.RemoteAddrValue">
+    allow="127\.\d+\.\d+\.\d+|::| 0:0:0:0:0:0:0:1"/>-->
+
+
+
+
+##  Generate war file from springboot
+1. Open pom.xml add this below <version></version>
+    <packaging>war</packaging>
+2. Dependency Config
+<dependencies>
+    <!-- Web dependency without embedded Tomcat -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-tomcat</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+    <!-- Provided scope for servlet container (Tomcat, etc.) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-tomcat</artifactId>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
+
+3. Update Main Class  
+<!-- Extend SpringBootServletInitializer and override configure(): -->
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class YourApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(YourApplication.class);
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(YourApplication.class, args);
+    }
+}
+
+4. Build the WAR
+mvn clean package
+
+5. .WAR file in target folder
+If you still see a .jar, double-check:
+
+You saved the pom.xml with <packaging>war</packaging>
+
+You ran mvn clean package (not just mvn package)
+
+Your project is not being overridden by some parent POM defaults (you can check in target/classes/META-INF for any hints)
+
+
+
+
+copy the .war file and store in tomcat/webapps folder

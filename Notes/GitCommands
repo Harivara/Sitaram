@@ -1,0 +1,75 @@
+## Creating git repo from local
+
+1. git init
+2. git add .
+3. git commit -m "initial commit"
+IF you want to call master as main
+    git branch -m master main
+
+4. Connect To github
+    1. create repo in github and copy url 
+        git remote add origin https://github.com/Harivara/StudentManagementSystem.git
+
+                            OR
+
+    2. Link local repo to github
+        git remote add origin https://github.com/Harivara/StudentManagementSystem.git
+5. Push to Github
+    git push -u origin main
+
+
+# Delete branch
+git push origin --delete [BRANCHNAME]
+
+# Unset the upstream branch
+git branch --unset-upstream
+
+# To create new Upstream
+git push --set-upstream origin your-new-branch-name
+
+# Alternatively, if the repository doesn't have a corresponding remote branch anymore and you're done with this remote, you can remove it from your configuration:
+
+git remote remove origin
+
+# Check remote origin
+git remote -v
+
+# To view more details about the remote configuration, you can use:
+git remote show origin
+
+
+# Delete branch in LOCAL
+1. if merged
+    git branch -d feature-branch
+2. not merged(force delete)
+    git branch -D feature-branch
+
+# Delete branch in remote
+1. git push origin --delete feature-branch
+
+# When refusing to merge due to unrelated-histories
+git pull origin main --allow-unrelated-histories
+
+
+# How to revert a pull request   
+1. commit history
+    git log --oneline
+2.  Revert the Merge Commit (Safe if already pushed)
+    git revert -m 1 <merge-commit-hash>
+    abc1234 is the hash of the merge commit.
+
+-m 1 tells Git to keep the first parent of the merge (usually your local work)
+ and discard the changes from the second parent (the pulled remote).
+
+This will create a new commit that undoes the merge, and is safe to push.
+
+
+# To ignore files to be pushed into git Repo
+1. Create a .gitignore
+2. add path
+    Ex: I dont want to include bin directory 
+    Add /bin in .gitignore
+3. If git is already tracking bin folder use
+    git rm -r --cached bin/
+
+
