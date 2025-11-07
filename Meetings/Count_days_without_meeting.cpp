@@ -2,10 +2,10 @@
 
 class Solution {
 public:
-    int countDays(int days, vector<vector<int>>& meetings) {
+    int countDays(int days, vector<vector<int>>& meetings) { 
        sort(meetings.begin(),meetings.end());
         int prev=meetings[0][1];
-        int count=meetings[0][0]-1;
+        int count=meetings[0][0]-1; // days before first meeting
         for(int i=1;i<meetings.size();i++){
               if(meetings[i][0]-prev>1){
                   count=count+meetings[i][0]-prev-1;
@@ -15,7 +15,7 @@ public:
         cout<<count<<endl;
         cout<<prev<<endl;
         // cout<<count<<endl;
-        count=count+days-prev;
+        count=count+days-prev;  // days after last meeting
         return count;
     }
 };©leetcode
