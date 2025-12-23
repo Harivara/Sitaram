@@ -25,9 +25,11 @@ public:
                 }
 
                 if (!st.empty()) {
-                    int prev = st.top();
+                    // stack would not be empty when there zero in heights[0..j]
+                    int prev = st.top(); // gives the index of height[j]=0
                     sum[j] = sum[prev] + height[j] * (j - prev);
                 } else {
+                    // stack would be empty when there is no zero in heights[0..j]
                     sum[j] = height[j] * (j + 1);
                 }
 

@@ -1,5 +1,8 @@
 https://www.interviewbit.com/problems/stairs/
 
+dp[0]=1 because if I jump from 0->2 then no of steps is 1
+dp[2]=dp[i-1]+dp[i-2]
+
 int fun(int i,vector<int>&dp){
     if(i==1 || i==0){
         return 1;
