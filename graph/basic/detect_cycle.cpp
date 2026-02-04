@@ -54,3 +54,29 @@ int main() {
 
     return 0;
 }
+
+// --------------------------------------UNDIRECTED GRAPH -----------------------------
+
+bool dfs(int node, int parent, vector<vector<int>>& adj, vector<bool>& vis) {
+    vis[node] = true;
+    for (int nbr : adj[node]) {
+        if (!vis[nbr]) {
+            if (dfs(nbr, node, adj, vis))
+                return true;
+        } else if (nbr != parent) {
+            return true; // cycle detected
+        }
+    }
+    return false;
+}
+
+bool isCycle(int V, vector<vector<int>>& adj) {
+    vector<bool> vis(V, false);
+    for (int i = 0; i < V; i++) {
+        if (!vis[i]) {
+            if (dfs(i, -1, adj, vis))
+                return true;
+        }
+    }
+    return false;
+}
