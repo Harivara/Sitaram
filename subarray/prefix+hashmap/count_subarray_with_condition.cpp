@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/continuous-subarray-sum/solutions/5276981/prefix-sum-hashmap-patterns-7-problems-b-6794/
+
 1. Count Subarrays with some given condtion
 
 // https://leetcode.com/problems/subarray-sum-equals-k/submissions/1826287190/
