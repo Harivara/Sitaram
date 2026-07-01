@@ -29,3 +29,13 @@ public:
         return left;
     }
 };
+
+array [1,4,6,7,9,] k =3
+left =0, right = 8
+mid = 4
+bool feasible(4, nums, 3) returns true
+int j=0, i=0, count=0
+    while (nums[0] - nums[0] > 4) { // false
+        i++;
+    i=1, j=0
+,
