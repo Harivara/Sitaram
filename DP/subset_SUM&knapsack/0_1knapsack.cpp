@@ -33,6 +33,7 @@ class Solution {
         // vector<vector<int>>dp(n,vector<int>(W+1,0));
         // // return fun(n-1,W,val,wt,dp);
         
+        // Base case: only item 0
         // for(int w=wt[0];w<=W;w++){
         //     dp[0][w]=val[0];
         // }

@@ -2,6 +2,8 @@
 
 1. Count Subarrays with some given condtion
 
+// mp[sum-k] = "How many places can I start from so that the subarray ending here has sum k?"
+
 // https://leetcode.com/problems/subarray-sum-equals-k/submissions/1826287190/
 
 /*Given an array of integers arr and an integer k,
@@ -12,7 +14,8 @@ return the total number of subarrays whose sum equals to k.*/
 // mp[sum-k] stores the freq of previous indexes where sum of sub_array is k
 
 // Adding the current prefix sum to the map for future subarrays
-// If the current prefixsum-k is already present in the map then we can remove that subarray we can new subarray with sum k
+// If the current prefixsum-k is already present in the map 
+// then we can remove that subarray we can new subarray with sum k
 
 // array = [2, 1, -2, 4 , -3] k=2
 // subarray with sum k=2 are [2], [-2, 4], [2, 1, -2, 4, -3], [1, -2, 4, -3], [4, -3, 1] => total 5 subarrays

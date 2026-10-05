@@ -1,59 +1,72 @@
-#include <bits/stdc++.h>
-using namespace std;
+https://leetcode.com/problems/minimum-time-for-k-connected-components/description/
 
-class UnionFind {
-private:
+class Dsu {
+public:
     vector<int> parent;
     vector<int> rank;
-public:
-    // Initialize Union-Find for n vertices (0 to n-1)
-    UnionFind(int n) {
+
+    Dsu(int n) {
         parent.resize(n);
-        rank.resize(n, 0);
-        for (int i = 0; i < n; ++i)
+        rank.resize(n);
+        for (int i = 0; i < n; ++i) {
             parent[i] = i;
+            rank[i] = 0;
+        }
     }
 
-    // Find with path compression
-    int find(int x) {
-        if (parent[x] != x)
-            parent[x] = find(parent[x]);
-        return parent[x];
+    int findParent(int x) {
+        if (x == parent[x]) return x;
+        return parent[x] = findParent(parent[x]);
     }
 
-    // Union by rank
-    void unite(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
+    bool unite(int a, int b) {       // focus here, a bit change than usual.
+        int pa = findParent(a);
+        int pb = findParent(b);
+        if (pa == pb) return false;
 
-        if (rootX == rootY) return; // Already in same set
-
-        if (rank[rootX] < rank[rootY])
-            swap(rootX, rootY);
-
-        parent[rootY] = rootX;
-        if (rank[rootX] == rank[rootY])
-            rank[rootX]++;
-    }
-
-    // Optional: check if two nodes are in the same set
-    bool connected(int x, int y) {
-        return find(x) == find(y);
+        if (rank[pa] > rank[pb]) {
+            parent[pb] = pa;
+        } else if (rank[pa] < rank[pb]) {
+            parent[pa] = pb;
+        } else {
+            parent[pb] = pa;
+            rank[pa]++;
+        }
+        return true;
     }
 };
 
-int main() {
-    int n = 5; // number of vertices
-    UnionFind uf(n);
+class Solution {
+public:
 
-    uf.unite(0, 1);
-    uf.unite(1, 2);
+// Main Logic:-
 
-    cout << "Are 0 and 2 connected? " << (uf.connected(0, 2) ? "Yes" : "No") << endl;
-    cout << "Are 3 and 4 connected? " << (uf.connected(3, 4) ? "Yes" : "No") << endl;
+/* Think in reverse:
+Since edges are removed over time, and the graph breaks apart, you want to start from a fully disconnected graph and add back edges in descending time order,keeping only those with time>t.
 
-    uf.unite(3, 4);
-    cout << "Are 3 and 4 connected now? " << (uf.connected(3, 4) ? "Yes" : "No") << endl;
+At every time step, simulate what happens if you don’t remove the edge (i.e., time > t), and track when the number of connected components drops below k.
 
-    return 0;
-}
+*/
+    int minTime(int n, vector<vector<int>>& edges, int k) {
+        // Sort by descending time
+        sort(edges.begin(), edges.end(), [](const vector<int>& a, const vector<int>& b) {
+            return a[2] > b[2];
+        });
+
+        Dsu dsu(n);
+        int components = n;
+
+        for (auto& e : edges) {
+            int u = e[0], v = e[1], t = e[2];
+            if (dsu.unite(u, v)) { // ultimate parent are not same so, they will unite and hence the no. of components will reduce.
+                components--;
+            }
+            if (components < k) {
+                return t;
+            }
+        }
+
+        // If even after removing all edges we have ≥ k components
+        return 0;
+    }
+};
