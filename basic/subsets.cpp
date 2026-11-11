@@ -27,16 +27,25 @@ vector<vector<int>> generateSubsets(vector<int>& nums) {
     return subsets;
 }
 
-int main() {
-    vector<int> nums = {1, 2, 3};
-    auto res = generateSubsets(nums);
+#include <bits/stdc++.h>
+using namespace std;
 
-    cout << "Subsets:\n";
-    for (auto& subset : res) {
-        cout << "{ ";
-        for (int x : subset) cout << x << " ";
-        cout << "}\n";
+void subsequences(string s, int i, string ans) {
+    if (i == s.length()) {
+        cout << ans << endl;
+        return;
     }
 
-    return 0;
+    // Choice 1: Include the current character
+    subsequences(s, i + 1, ans + s[i]);
+
+    // Choice 2: Exclude the current character
+    subsequences(s, i + 1, ans);
+}
+
+int main() {
+    string s;
+    cin >> s;
+
+    subsequences(s, 0, "");
 }

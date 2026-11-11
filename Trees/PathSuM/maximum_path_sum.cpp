@@ -16,7 +16,7 @@ public:
         if(root==NULL){
             return 0;
         }
-        int left=max(dfs(root->left),0);
+        int left=max(dfs(root->left),0); // use 0 if there are any negatives
         int right=max(dfs(root->right),0);
         maxSum=max(maxSum,root->val+left+right);
         return root->val+max(left,right);               // returning maxpath to root
