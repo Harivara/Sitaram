@@ -3,3 +3,447 @@ https://www.geeksforgeeks.org/dsa/infosys-sde-sheet-interview-questions-and-answ
 https://prepinsta.com/infosys-sp-and-dse/coding-questions/
 
 https://stotranidhi.com/sri-bhagavadgita-dhyanam-in-telugu/
+
+Q1. Lift Movement – Count Direction Changes After Ignoring Jitter
+
+Input parameters: "N, arr[], F"
+
+You are given an array representing the positions of a lift moving up and down. Between two significant movements, there can be small fluctuations called jitter.
+
+If the difference between the current position and the last stable position is less than or equal to F, that movement should be ignored.
+
+The first array element must always be considered the initial stable position.
+
+After filtering out jitter, count the number of times the lift changes direction (up to down or down to up).
+
+Example 1:
+
+N = 4
+
+arr = [1, 5, 2, 7]
+
+F = 1
+
+Output = 2
+
+Explanation:
+
+- 1 → 5: Up
+
+- 5 → 2: Down (1 direction change)
+
+- 2 → 7: Up (2nd direction change)
+
+Example 2:
+
+N = 5
+
+arr = [1, 2, 4, 3, 1]
+
+F = 1
+
+Output = 1
+
+Explanation:
+
+Small movements are ignored, so the significant movement is:
+
+1 → 4 → 1
+
+Up → Down = 1 direction change.
+
+My performance: 10/12 test cases passed.
+
+I suspect I made a mistake by comparing the current element with the immediately previous element instead of maintaining the last stable position. There might also have been an integer overflow issue because I used "int" instead of "long".
+
+What would be the optimal approach for this problem?
+
+Q2. Mountain Houses – Minimum Maximum Walking Distance to Dustbins
+
+Input parameters: "N, matrix[N][2], K"
+
+You are given N houses situated along a mountain road.
+
+Each row of the matrix contains:
+
+- First column: Position of the house (kilometres).
+
+- Second column: Approval status (0 or 1).
+
+A dustbin can only be installed at an approved house (approval = 1).
+
+You have K dustbins that need to be installed. Every house must be served by a dustbin.
+
+The objective is to minimize the maximum walking distance of any house to its nearest dustbin.
+
+Example 1:
+
+N = 3
+
+matrix = [
+
+[0, 1],
+
+[5, 1],
+
+[10, 1]
+
+]
+
+K = 3
+
+Output = 0
+
+Example 2:
+
+N = 3
+
+matrix = [
+
+[0, 1],
+
+[5, 1],
+
+[10, 1]
+
+]
+
+K = 2
+
+Output = 5
+
+Example 3:
+
+N = 3
+
+matrix = [
+
+[0, 1],
+
+[5, 0],
+
+[10, 1]
+
+]
+
+K = 1
+
+Output = 10
+
+My performance: 3/12 test cases passed.
+
+I believe this problem involves Binary Search on Answer + Greedy, but I'm not completely sure about the correct feasibility-checking logic.
+
+Would appreciate an explanation of the intended optimal approach.
+
+Q3. Painting Planks – Minimum Cost with Limited Paint Cans
+
+Input parameters: "N, matrix[N][2], V"
+
+You are given N planks that must be painted using either colour A or colour B.
+
+Each row of the matrix contains:
+
+- First column: Cost/quantity required to paint that plank with A.
+
+- Second column: Cost of painting that plank with B.
+
+You are also given V, representing the total available paint cans for colour A.
+
+Conditions:
+
+You cannot paint three consecutive planks with the same colour (AAA or BBB is not allowed).
+
+The total number of cans consumed for painting with A must not exceed V.
+
+Every plank must be painted.
+
+Minimize the total painting cost.
+
+If no valid arrangement is possible, return -1.
+
+Example:
+
+N = 3
+
+A = [2, 3, 5]
+
+B = [4, 2, 3]
+
+V = 9
+
+If we choose A for the first two planks:
+
+- Initially available = 9
+
+- First plank consumes 2, remaining = 7
+
+- Second plank consumes 3, remaining = 4
+
+- Third plank requires 5, so A is no longer affordable.
+
+We must choose B for the third plank.
+
+The resulting arrangement is AAB, which is valid.
+
+The objective is to find the minimum total cost among all valid arrangements.
+
+I believe this is a DP problem involving resource constraints and consecutive-state tracking, but given the large constraints, I'm unsure about the intended optimization.
+
+Common constraints (as far as I remember)
+
+N <= 10^6
+
+Individual values <= 10^9
+
+I don't remember the fourth question clearly.
+
+
+1st question was there was array like [3,4,5,6]in this first person choose 1st card then B person choose next 2 cards again Awill choose next 3 cards alternatively I was not able to get what the pattern this was .
+
+2 matrix problem like if first column should be greater than second column otherwise swap it.and something like cost .
+
+
+
+
+Here are the insights
+
+4 questions 3 hours
+
+you are at a market place, you only have 5 rupees coins
+
+Given a array of price = [ 3,6,8,7]
+
+We have to pay this amount but as we have 5ruppees coins only so we have to round them up
+
+If it's 1,2 then we can pay 0 if its 3,4 then 5
+
+If it's 6,7 the 5 and if it's 8,9 then 10 and so on..
+
+Now we can either pay by rounding each one or by adding all and then rounding
+
+Eg. price = [ 3,6,8,7]
+
+Round each one = 0,5,10,5 so pay 20
+
+Or add all 3+6+8+7 = 24 so pay 25
+
+We have to minimize the pay
+
+It was an easy question and all my TC were passed
+
+2)I was given a Nx4 matrix where n are number of dishes
+
+The 1st column is weight of small container 2nd column is how many people it satisfies 3rd coloum is weight of big container and 4th is how many people it satisfies
+
+I am also given a C that is the capacity we can hold
+
+Atleast small or big container of all the N dishes has to be taken, if it's not possible the return -1
+
+We have to maximize the number of people it satisfies
+
+3) Another question was
+
+We have a Matrix of Nx2
+
+N is number of matches
+
+We have 2 type of player a star player and a substitute player
+
+The 1st column is score of star player if he play that match and 2nd column is of substitute player
+
+After every match the star player get fatigue+1
+
+We have R that is rest points, if star player is not playing then his fatigue will be reduced by R and we can only give rest to star player only R times.
+
+For example if we have a N=4 R=1
+
+Then
+
+5,1
+
+5,1
+
+5,1
+
+5,1
+
+The answer I am expecting is 15
+
+1st match star player plays so score is 5 in next match we give him rest and let substitute play so score is 6
+
+Then we let star play again so score is 11 then as we have already given him rest 1 time so now cannnot give him rest so score =11 + 5 -1 (fatigue)
+
+We have to maximize the score
+
+4) it was very difficult and I only had 10 mins so skipped it
+
+In total I passed 15 TCs, so can I expect a interview call ? And if yes when can I expect the interview to be scheduled ( I have some work next month so I won't be available in Pune )
+
+
+
+What are the chances for interview shortlisting?, my solution passed 11 testcases for 1st problem, 09 for second, 0 for third (compiler issue), 5 for 4th problem.
+
+I heard that partial accepted testcases won't be counted. Does this means my score is 0 ?
+
+Question 1 :
+
+Variation of buy stocks , we need to sell grains with maximum profit, within the rotting period r and curing period c , we can make almost one transaction.
+
+Solved using DP memo
+
+Question 2:
+
+we are given two arrays for representing energy output and stability of a machine, we need to choose subset of machines maximizing energy,
+
+condition is , we can only choose a machine if it's stability is less that P , where p is the position of chosen machine in subset.
+
+sorting + dp
+
+Question 3 :
+
+we are given a string and we need to make the K parts of string , such that each part is a palindrome and we can swap character to make palindrome.
+
+partition dp + minimum insertion to make palindrome Variation Question
+
+Question 4
+
+we need to calculate the xor sum of all the subsets of array and need to return no of sums less that K
+
+Range sum (segment trees) + DP
+
+
+
+
+
+
+Q1 - There is array given with floor no and it's damage or not. There is also given starting floor. You have to interate whole array and just take the non damage floor one by one and take mod difference between current floor and the floor you have moved to and take the sun of it. Eg - [[3,1],[4,0],[2,1]] starting floor is 1 then answer is 3 as |1-3| + |3-2|
+
+Q2 - You are given an array. You have to make the array stictly increasing and you can reduce or increase any number and there is also a cost associated to do increment and decrement of that number. You have find the minimum cost it takes to make the array increasing.
+
+Q3 - Given an array containing height of tower. There is also given a value k. You can put watchman in any towers. He can view the tower in both direction left and right till the range i.e he can view k towers from both the sides until there is a tower that is having height grater than his tower. You have tell minimum no of watchman to put on tower so that each building and be viewed.
+
+
+
+
+
+1 - Depth of current command
+
+You were a given a list of commands and some conditions based on that you need to find the depth
+
+2- maximum weight of recovery chain
+
+You were given some shards of damaged disk
+
+You need find the maximum weight of recovery chain containing valid shards (they gave some arrays and some conditions to make two shards valid then only that shard can be added to our recovery chain)
+
+3- longest valid subsequence
+
+You were given a string with even length and you need to return the longest valid subsequence, the subsequence is said to be valid if first element equals last element, second element equals second last and so on and in this comparison you are allowed to let go one mismatch
+
+Example - input - (abccba) output - 6
+
+input (abcd) output - 2
+
+There is a plan which was flying in straight line either it will go up or down based that wether it will will reach the final destination or not if not by how much margin it will fall short
+
+
+1. Minimum Sum of Pairwise Absolute Differences
+Given an even-length array.
+
+Form N/2 pairs.
+
+Each pair must contain one element from the first half and one element from the second half of the original array.
+
+Cost of a pair = |a - b|.
+
+Find the minimum total cost.
+
+2. Count Binary Strings of Length N with No K Consecutive 1s
+Given N and K.
+
+Count binary strings of length N such that:
+
+No substring contains K consecutive 1s.
+
+First and last bits are different.
+
+Return the answer modulo 10^9 + 7.
+
+3. Minimum Cost K-Partition with Per-Segment Range Cost
+Given an array of N integers.
+
+Partition it into exactly K contiguous non-empty segments.
+
+Segment cost =(maximum element − minimum element) + |first element − last element|
+
+Find the minimum possible total cost.
+
+
+https://medium.com/@mahammedsameersyed2004/what-infosyss-offline-coding-exam-actually-looks-like-2af0c3097150
+
+
+
+
+
+
+https://prachub.com/?utm_source=reddit&utm_campaign=andy
+
+
+
+
+include <bits/stdc++.h>
+using namespace std;
+
+long long minCost(vector<vector<int>>& arr) { int n = arr.size();
+
+const long long INF = 1e18;
+
+long long keep = 0;
+long long swap = (arr[0][2] == -1) ? INF : arr[0][2];
+
+for (int i = 1; i < n; i++) {
+    long long newKeep = INF;
+    long long newSwap = INF;
+
+    int a = arr[i - 1][0];
+    int b = arr[i - 1][1];
+
+    int x = arr[i][0];
+    int y = arr[i][1];
+
+    int cost = arr[i][2];
+
+    // Case 1: Both arrays increase without crossing
+    if (a < x && b < y) {
+        newKeep = min(newKeep, keep);
+
+        if (cost != -1) {
+            newSwap = min(newSwap, swap + cost);
+        }
+    }
+
+    // Case 2: Both arrays increase by swapping
+    // one of the two adjacent positions
+    if (a < y && b < x) {
+        if (cost != -1) {
+            newSwap = min(newSwap, keep + cost);
+        }
+
+        newKeep = min(newKeep, swap);
+    }
+
+    keep = newKeep;
+    swap = newSwap;
+}
+
+long long ans = min(keep, swap);
+
+return ans == INF ? -1 : ans;
+}
+
+int main() { vector<vector<int>> arr = { {1, 2, 3}, {4, 5, 6}, {7, 4, 9}, {10, 11, 12} };
+
+cout << minCost(arr);
+
+return 0;

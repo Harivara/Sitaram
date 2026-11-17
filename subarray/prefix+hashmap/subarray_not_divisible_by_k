@@ -1,0 +1,29 @@
+class Solution {
+public:
+    long long countSubarrays(vector<int>& arr) {
+        long long count = 0;
+        int sum = 0;
+
+        unordered_map<int, int> mp;
+        mp[0] = 1;
+
+        for (int i = 0; i < arr.size(); i++) {
+            sum = (sum + arr[i]) % 3;
+
+            // Count previous prefixes with different remainder
+            count += mp[0] + mp[1] + mp[2] - mp[sum];
+
+            mp[sum]++;
+        }
+
+        return count;
+    }
+};
+
+// Why do we add mp[0] + mp[1] + mp[2] - mp[sum]?
+// Suppose the current prefix remainder is 1.
+
+// We want previous prefix remainders:
+// - Remainder 0 → valid.
+// - Remainder 1 → invalid.
+// - Remainder 2 → valid.
