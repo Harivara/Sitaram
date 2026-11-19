@@ -16,11 +16,16 @@
 
 // https://leetcode.com/problems/minimum-sum-after-divisible-sum-deletions
 
+
+dp[i] = minimum leftover sum after processing the first i elements
+
+
 class Solution {
 public:
     long long minArraySum(vector<int>& nums, int k) {
         int n = nums.size();
-        vector<long long> dp(n+1, LLONG_MAX), mp(k, -1);
+        vector<long long> dp(n+1, LLONG_MAX);
+        unordered_map<int,int>mp;
         dp[0] = 0;
         mp[0] = 0;
         long long prefixSum = 0;
