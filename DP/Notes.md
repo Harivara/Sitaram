@@ -12,3 +12,14 @@ else{
 ## We do return pick+notpick instead of max(pick,notpick)
 ## Because it is a counting problem
 ## max(pick,notpick) or min(pick,notpick) is used in Optimisation.
+
+## BASE TEMPLATE
+// int pick = 0;
+
+// if (A[i-1] == B[j-1]) {
+//     pick = solve(i-1, j-1, A, B);
+// }
+
+// int notPick = solve(i-1, j, A, B);
+
+// return pick + notPick;
